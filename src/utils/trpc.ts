@@ -77,6 +77,7 @@ export const trpc = createTRPCNext<AppRouter, SSRContext>({
 
             const {
               // If you're using Node 18 before 18.15.0, omit the "connection" header
+              // eslint-disable-next-line @typescript-eslint/no-unused-vars
               connection: _connection,
               ...headers
             } = ctx.req.headers;
@@ -85,9 +86,10 @@ export const trpc = createTRPCNext<AppRouter, SSRContext>({
           /**
            * @link https://trpc.io/docs/v11/data-transformers
            */
-          transformer,
+          // transformer,
         }),
       ],
+      transformer,
       /**
        * @link https://tanstack.com/query/v5/docs/reference/QueryClient
        */
@@ -98,10 +100,6 @@ export const trpc = createTRPCNext<AppRouter, SSRContext>({
    * @link https://trpc.io/docs/v11/ssr
    */
   ssr: false,
-  /**
-   * @link https://trpc.io/docs/v11/data-transformers
-   */
-  transformer,
 });
 
 export type RouterInput = inferRouterInputs<AppRouter>;
