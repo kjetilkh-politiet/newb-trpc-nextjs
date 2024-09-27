@@ -1,20 +1,20 @@
 import { trpc } from '~/utils/trpc';
+import UserDelete from './UserDelete';
 
 export default function Users() {
   // Queries
-  const users = trpc.user.list.useQuery(undefined, {});
-
-  console.log('users is ', users);
+  const users = trpc.user.list.useQuery();
 
   return (
     <section>
-      <table>
+      <table className="data-table">
         <thead>
           <tr>
             <td>ID</td>
             <td>Fornavn</td>
             <td>Etternavn</td>
             <td>E-post</td>
+            <td></td>
           </tr>
         </thead>
         <tbody>
@@ -25,6 +25,9 @@ export default function Users() {
                 <td>{user.firstName}</td>
                 <td>{user.lastName}</td>
                 <td>{user.email}</td>
+                <td>
+                  <UserDelete userId={user.id} />
+                </td>
               </tr>
             );
           })}

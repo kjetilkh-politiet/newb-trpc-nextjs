@@ -4,26 +4,49 @@
  */
 import { router, publicProcedure } from '../trpc';
 import { db } from '../drizzle';
+import { user } from '~/schema';
+import { z } from 'zod';
+import { eq } from 'drizzle-orm';
+import { TRPCError } from '@trpc/server';
 
 export const userRouter = router({
   list: publicProcedure.query(async () => {
-    const res = await db.query.user.findMany();
-    console.log('res from server is ', res);
-    return res;
+    return await db.query.user.findMany();
   }),
-  // add: publicProcedure
-  //   .input(
-  //     z.object({
-  //       id: z.string().uuid().optional(),
-  //       title: z.string().min(1).max(32),
-  //       text: z.string().min(1),
-  //     }),
-  //   )
-  //   .mutation(async ({ input }) => {
-  //     const post = await prisma.post.create({
-  //       data: input,
-  //       select: defaultPostSelect,
-  //     });
-  //     return post;
-  //   }),
+  delete: publicProcedure
+    .input(z.number())
+    .mutation(async ({ input: userId }) => {
+      const result = await db.delete(user).where(eq(user.id, userId));
+      if (result[0].affectedRows <= 0)
+        throw new TRPCError({
+          code: 'BAD_REQUEST',
+          message: 'Ingen bruker ble slettet av en eller annen grunn.',
+        });
+
+      return {
+        status: 'success',
+        message: 'Bruker slettet.',
+      } as const;
+    }),
+  create: publicProcedure
+    .input(
+      z.object({
+        firstName: z.string().min(3),
+        lastName: z.string().min(3),
+        email: z.string().email(),
+      }),
+    )
+    .mutation(async ({ input: userCreate }) => {
+      const result = await db.insert(user).values(userCreate);
+      if (result[0].affectedRows <= 0)
+        throw new TRPCError({
+          code: 'BAD_REQUEST',
+          message: 'Ingen bruker ble opprettet av en eller annen grunn.',
+        });
+
+      return {
+        status: 'success',
+        message: 'Bruker lagt til.',
+      } as const;
+    }),
 });

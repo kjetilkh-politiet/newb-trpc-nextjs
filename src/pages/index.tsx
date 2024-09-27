@@ -1,8 +1,14 @@
+import UserAdd from '~/components/UserAdd';
 import type { NextPageWithLayout } from './_app';
 import Users from '~/components/Users';
 
 const IndexPage: NextPageWithLayout = () => {
-  return <Users />;
+  return (
+    <section className="grid gap-10">
+      <Users />
+      <UserAdd />
+    </section>
+  );
 };
 
 export default IndexPage;

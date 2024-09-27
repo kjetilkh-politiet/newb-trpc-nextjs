@@ -13,7 +13,7 @@ export const DefaultLayout = ({ children }: DefaultLayoutProps) => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      <main className="h-screen">
+      <main className="max-w-[650px] m-auto py-24">
         <h1 className="text-4xl mb-6">{title}</h1>
         {children}
       </main>
