@@ -1,6 +1,6 @@
-import UserAdd from '~/components/UserAdd';
-import type { NextPageWithLayout } from './_app';
-import Users from '~/components/Users';
+import UserAdd from "~/components/UserAdd";
+import type { NextPageWithLayout } from "./_app";
+import Users from "~/components/Users";
 
 const IndexPage: NextPageWithLayout = () => {
 	return (

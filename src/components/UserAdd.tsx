@@ -1,22 +1,22 @@
-import { FormEvent, useState } from 'react';
-import { trpc } from '~/utils/trpc';
+import { FormEvent, useState } from "react";
+import { trpc } from "~/utils/trpc";
 
 export default function UserAdd() {
 	const utils = trpc.useUtils();
 	const mutation = trpc.user.create.useMutation({
 		onSuccess: () => {
-			utils.invalidate(undefined, { queryKey: ['user'] });
+			utils.invalidate(undefined, { queryKey: ["user"] });
 
 			// reset form
-			setFirstName('');
-			setLastName('');
-			setEmail('');
+			setFirstName("");
+			setLastName("");
+			setEmail("");
 		},
 	});
 
-	const [firstName, setFirstName] = useState('');
-	const [lastName, setLastName] = useState('');
-	const [email, setEmail] = useState('');
+	const [firstName, setFirstName] = useState("");
+	const [lastName, setLastName] = useState("");
+	const [email, setEmail] = useState("");
 
 	const onSubmit = (event: FormEvent) => {
 		event.preventDefault();

@@ -1,9 +1,9 @@
-import Head from 'next/head';
-import type { ReactNode } from 'react';
+import Head from "next/head";
+import type { ReactNode } from "react";
 
 type DefaultLayoutProps = { children: ReactNode };
 
-const title = 'tRPC | Next.js';
+const title = "tRPC | Next.js";
 
 export const DefaultLayout = ({ children }: DefaultLayoutProps) => {
 	return (

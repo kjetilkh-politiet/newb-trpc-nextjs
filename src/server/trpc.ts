@@ -8,10 +8,10 @@
  * @link https://trpc.io/docs/v11/procedures
  */
 
-import { initTRPC } from '@trpc/server';
-import { transformer } from '~/utils/transformer';
-import type { Context } from './context';
-import { ZodError } from 'zod';
+import { initTRPC } from "@trpc/server";
+import { transformer } from "~/utils/transformer";
+import type { Context } from "./context";
+import { ZodError } from "zod";
 
 const t = initTRPC.context<Context>().create({
 	/**
@@ -25,14 +25,14 @@ const t = initTRPC.context<Context>().create({
 		const { shape, error } = opts;
 
 		const zodErrorResult = (() => {
-			if (error.code !== 'BAD_REQUEST') return null;
+			if (error.code !== "BAD_REQUEST") return null;
 			if (!(error.cause instanceof ZodError)) return null;
 
 			// format zod error
 			const zodError = error.cause.flatten();
 			const parts: string[] = [];
 			if (zodError.formErrors.length) {
-				parts.push(`Skjema: ${zodError.formErrors.join(', ')}`);
+				parts.push(`Skjema: ${zodError.formErrors.join(", ")}`);
 			}
 			if (
 				zodError.fieldErrors &&
@@ -40,11 +40,11 @@ const t = initTRPC.context<Context>().create({
 			) {
 				parts.push(
 					...Object.entries(zodError.fieldErrors).map(
-						([field, error]) => `${field}: ${error?.join(', ')}`,
-					),
+						([field, error]) => `${field}: ${error?.join(", ")}`
+					)
 				);
 			}
-			const zodErrorMessage = parts.join(', ');
+			const zodErrorMessage = parts.join(", ");
 
 			return {
 				zodError,

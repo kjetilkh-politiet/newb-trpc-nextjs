@@ -1,5 +1,5 @@
-import { trpc } from '~/utils/trpc';
-import UserDelete from './UserDelete';
+import { trpc } from "~/utils/trpc";
+import UserDelete from "./UserDelete";
 
 export default function Users() {
 	// Queries

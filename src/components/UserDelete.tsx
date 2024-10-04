@@ -1,12 +1,12 @@
-'use client';
+"use client";
 
-import { trpc } from '~/utils/trpc';
+import { trpc } from "~/utils/trpc";
 
 export default function UserDelete({ userId }: { userId: number }) {
 	const utils = trpc.useUtils();
 	const mutation = trpc.user.delete.useMutation({
 		onSuccess: () => {
-			utils.invalidate(undefined, { queryKey: ['user'] });
+			utils.invalidate(undefined, { queryKey: ["user"] });
 		},
 	});
 
