@@ -4,10 +4,10 @@
  */
 import { router, publicProcedure } from '../trpc';
 import { db } from '../drizzle';
-import { user } from '~/schema';
 import { z } from 'zod';
 import { eq } from 'drizzle-orm';
 import { TRPCError } from '@trpc/server';
+import { user } from '../schema';
 
 export const userRouter = router({
   list: publicProcedure.query(async () => {
