@@ -3,6 +3,10 @@ import { trpc } from "~/utils/trpc";
 
 export default function UserAdd() {
 	const utils = trpc.useUtils();
+	const [firstName, setFirstName] = useState("");
+	const [lastName, setLastName] = useState("");
+	const [email, setEmail] = useState("");
+
 	const mutation = trpc.user.create.useMutation({
 		onSuccess: () => {
 			utils.user.list.invalidate();
@@ -13,10 +17,6 @@ export default function UserAdd() {
 			setEmail("");
 		},
 	});
-
-	const [firstName, setFirstName] = useState("");
-	const [lastName, setLastName] = useState("");
-	const [email, setEmail] = useState("");
 
 	const onSubmit = (event: FormEvent) => {
 		event.preventDefault();
