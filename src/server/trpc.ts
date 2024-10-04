@@ -14,50 +14,53 @@ import type { Context } from './context';
 import { ZodError } from 'zod';
 
 const t = initTRPC.context<Context>().create({
-  /**
-   * @link https://trpc.io/docs/v11/data-transformers
-   */
-  transformer,
-  /**
-   * @link https://trpc.io/docs/server/error-formatting#adding-custom-formatting
-   */
-  errorFormatter(opts) {
-    const { shape, error } = opts;
+	/**
+	 * @link https://trpc.io/docs/v11/data-transformers
+	 */
+	transformer,
+	/**
+	 * @link https://trpc.io/docs/server/error-formatting#adding-custom-formatting
+	 */
+	errorFormatter(opts) {
+		const { shape, error } = opts;
 
-    const zodErrorResult = (() => {
-      if (error.code !== 'BAD_REQUEST') return null;
-      if (!(error.cause instanceof ZodError)) return null;
+		const zodErrorResult = (() => {
+			if (error.code !== 'BAD_REQUEST') return null;
+			if (!(error.cause instanceof ZodError)) return null;
 
-      // format zod error
-      const zodError = error.cause.flatten();
-      const parts: string[] = [];
-      if (zodError.formErrors.length) {
-        parts.push(`Skjema: ${zodError.formErrors.join(', ')}`);
-      }
-      if (zodError.fieldErrors && Object.keys(zodError.fieldErrors).length) {
-        parts.push(
-          ...Object.entries(zodError.fieldErrors).map(
-            ([field, error]) => `${field}: ${error?.join(', ')}`,
-          ),
-        );
-      }
-      const zodErrorMessage = parts.join(', ');
+			// format zod error
+			const zodError = error.cause.flatten();
+			const parts: string[] = [];
+			if (zodError.formErrors.length) {
+				parts.push(`Skjema: ${zodError.formErrors.join(', ')}`);
+			}
+			if (
+				zodError.fieldErrors &&
+				Object.keys(zodError.fieldErrors).length
+			) {
+				parts.push(
+					...Object.entries(zodError.fieldErrors).map(
+						([field, error]) => `${field}: ${error?.join(', ')}`,
+					),
+				);
+			}
+			const zodErrorMessage = parts.join(', ');
 
-      return {
-        zodError,
-        zodErrorMessage,
-      } as const;
-    })();
+			return {
+				zodError,
+				zodErrorMessage,
+			} as const;
+		})();
 
-    return {
-      ...shape,
-      data: {
-        ...shape.data,
-        zodError: zodErrorResult?.zodError,
-        zodErrorMessage: zodErrorResult?.zodErrorMessage,
-      },
-    };
-  },
+		return {
+			...shape,
+			data: {
+				...shape.data,
+				zodError: zodErrorResult?.zodError,
+				zodErrorMessage: zodErrorResult?.zodErrorMessage,
+			},
+		};
+	},
 });
 
 /**

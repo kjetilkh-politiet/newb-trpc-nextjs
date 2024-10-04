@@ -2,15 +2,15 @@
 
 ## Features
 
-- 🧙‍♂️ E2E typesafety with [tRPC](https://trpc.io)
-- ⚡ Full-stack React with Next.js
-- ⚡ Database with Drizzle
-- ⚙️ VSCode extensions
-- 🎨 ESLint + Prettier
-- 💚 CI setup using GitHub Actions:
-  - ✅ E2E testing with [Playwright](https://playwright.dev/)
-  - ✅ Linting
-- 🔐 Validates your env vars on build and start
+-   🧙‍♂️ E2E typesafety with [tRPC](https://trpc.io)
+-   ⚡ Full-stack React with Next.js
+-   ⚡ Database with Drizzle
+-   ⚙️ VSCode extensions
+-   🎨 ESLint + Prettier
+-   💚 CI setup using GitHub Actions:
+    -   ✅ E2E testing with [Playwright](https://playwright.dev/)
+    -   ✅ Linting
+-   🔐 Validates your env vars on build and start
 
 ## Setup
 
@@ -23,8 +23,8 @@ pnpm dx
 
 ### Requirements
 
-- Node >= 18.0.0
-- Postgres
+-   Node >= 18.0.0
+-   Postgres
 
 ## Development
 
