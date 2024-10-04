@@ -17,6 +17,7 @@ export const userRouter = router({
 		.input(z.number())
 		.mutation(async ({ input: userId }) => {
 			const result = await db.delete(user).where(eq(user.id, userId));
+
 			if (result[0].affectedRows <= 0)
 				throw new TRPCError({
 					code: "BAD_REQUEST",
