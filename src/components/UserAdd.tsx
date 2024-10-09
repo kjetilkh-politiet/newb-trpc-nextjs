@@ -9,7 +9,7 @@ export default function UserAdd() {
 
 	const mutation = trpc.user.create.useMutation({
 		onSuccess: () => {
-			utils.user.list.invalidate();
+			utils.user.invalidate();
 
 			// reset form
 			setFirstName("");

@@ -6,7 +6,7 @@ export default function UserDelete({ userId }: { userId: number }) {
 	const utils = trpc.useUtils();
 	const mutation = trpc.user.delete.useMutation({
 		onSuccess: () => {
-			utils.user.list.invalidate();
+			utils.user.invalidate();
 		},
 	});
 
