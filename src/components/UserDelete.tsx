@@ -1,5 +1,3 @@
-"use client";
-
 import { trpc } from "~/utils/trpc";
 
 export default function UserDelete({ userId }: { userId: number }) {
