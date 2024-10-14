@@ -13,6 +13,7 @@ export const userRouter = router({
 	list: publicProcedure.query(async () => {
 		return await db.query.user.findMany();
 	}),
+
 	delete: publicProcedure
 		.input(z.number())
 		.mutation(async ({ input: userId }) => {
@@ -30,6 +31,7 @@ export const userRouter = router({
 				message: "Bruker slettet.",
 			} as const;
 		}),
+		
 	create: publicProcedure
 		.input(
 			z.object({
