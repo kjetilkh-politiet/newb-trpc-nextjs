@@ -2,7 +2,6 @@ import { trpc } from "~/utils/trpc";
 import UserDelete from "./UserDelete";
 
 export default function Users() {
-	// Queries
 	const users = trpc.user.list.useQuery();
 
 	return (
